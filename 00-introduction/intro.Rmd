@@ -1,0 +1,47 @@
+---
+title: "rOpenSci Biodiversity Suite"
+author: Scott Chamberlain
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: xaringan::moon_reader
+---
+
+class: center, middle
+
+<img src="../icon_lettering_black.svg"></img>
+
+---
+class: center, middle
+
+# Taxonomy
+
+---
+
+## Taxonomy packages
+
+- [taxize](https://github.com/ropensci/taxize) - Taxonomic toolbelt
+- [taxizesoap](https://github.com/ropensci/taxizesoap) - Taxonomic toolbelt (SOAP)
+- [ritis](https://github.com/ropensci/ritis) - ITIS client (avail. in taxize)
+- [taxizedb](https://github.com/ropensci/taxizedb) - Access to SQL dumps
+- [wikitaxa](https://github.com/ropensci/wikitaxa) - Taxonomy from Wiki-pedia/-species/-commons
+- [worrms](https://github.com/ropensci/worrms) - WORMS client (avail. in taxize)
+- [natserv](https://github.com/ropensci/natserv) - Natureserve client (avail. in taxize)
+- [taxa](https://github.com/ropensci/taxa) - Taxonomic classes to be used by other pkgs (coming soon)
+
+---
+class: center, middle
+
+# Occurrences
+
+---
+
+## Occurrence packages
+
+- [spocc](https://github.com/ropensci/spocc) - One client to rule them all
+- [rgbif](https://github.com/ropensci/rgbif) - GBIF data (avail. in spocc)
+- [AntWeb](https://github.com/ropensci/AntWeb) - AntWeb ant data (avail. in spocc)
+- [ecoengine](https://github.com/ropensci/taxizedb) - Berekeley Ecoengine client (avail. in spocc)
+- [rinat](https://github.com/ropensci/rinat) - iNaturalist client (avail. in spocc)
+- [rbison](https://github.com/ropensci/rbison) - USGS BISON client (avail. in spocc)
+- [rebird](https://github.com/ropensci/rebird) - eBird data (avail. in spocc)
+- [rvertnet](https://github.com/ropensci/rvertnet) - VertNet data (avail. in spocc)
+- [rfishbase](https://github.com/ropensci/rfishbae) - Fishbase.org data

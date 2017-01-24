@@ -1,0 +1,48 @@
+---
+title: "Biodiversity data: spocc"
+author: Scott Chamberlain
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+---
+
+```{r echo=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  message = FALSE,
+  warning = FALSE
+)
+```
+
+spocc - Make some maps!
+
+## Load libraries
+
+```{r}
+library('spocc')
+```
+
+## spocc unifies access to biodiversity data across sources
+
+```{r sources, message=FALSE, warning=FALSE}
+out <- occ(query = 'Accipiter striatus', from = 'gbif')
+out$gbif # GBIF data w/ metadata
+out$ebird$data # empty
+out$gbif$meta #  metadata, your query parameters, time the call executed, etc. 
+out$gbif$data # just data
+```
+
+And you can squash together data from sources easily
+
+```{r manysources, message=FALSE, warning=FALSE}
+out <- occ(query = 'Accipiter striatus', from = c('gbif', 'ebird'))
+occ2df(out)
+```
+
+## Your turn
+
+- 5 min
+
+> 1. Explore getting data from other sources for the same taxa to see 
+how they compare. And combine output (hint: occ2df() function)
+> 2. If you have time, explore other ways to query with spocc, including
+possibly by spatial area, sp class spatial objects, taxize identifiers,
+or other things.

@@ -1,0 +1,55 @@
+---
+title: "Biodiversity data: rgbif"
+author: Scott Chamberlain
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+---
+
+```{r echo=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  message = FALSE,
+  warning = FALSE
+)
+```
+
+## rgbif data
+
+```{r}
+library('rgbif')
+```
+
+## Names
+
+```{r}
+name_backbone(name='Helianthus', rank='genus', kingdom='plants')
+```
+
+## Registry metadata
+
+```{r}
+dataset_search(query="stockholm", limit = 10)
+```
+
+## Occurrence data search
+
+Two interfaces, one with more options, but a little slower
+
+```{r }
+occ_search(scientificName = 'Pulsatilla patens', limit=10)
+```
+
+Another with less options, optimized for speed
+
+```{r }
+(key <- name_backbone(name='Encelia californica')$speciesKey)
+occ_data(taxonKey = key, limit = 4)
+```
+
+
+## Your turn
+
+- 5 min
+
+> Search for names with any name_* functions, then using taxonomic Ids
+search for occurrences with occ_search() or occ_data. 
+

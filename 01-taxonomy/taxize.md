@@ -1,0 +1,9 @@
+-   Data sources
+-   Lots of data sources, currently 20
+-   Verbs (ish)
+-   `classification()`
+-   `children()`
+-   `downstream()`
+-   `comm2sci()`, `sci2comm()`
+-   `resolve()`
+-   `synonyms()`

@@ -1,0 +1,31 @@
+---
+title: "Taxonomy: taxize"
+author: Scott Chamberlain
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+---
+
+```{r echo=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  message = FALSE,
+  warning = FALSE
+)
+```
+
+## Single interface to many data sources
+
+- Currently 20 data sources
+- New data sources being added through time
+- Tries to provide unified way to query as well 
+as unified outputs
+
+## Taxonomic tasks
+
+- `classification()`
+- `children()`
+- `downstream()`
+- `upstream()`
+- `comm2sci()`, `sci2comm()`
+- `resolve()`
+- `synonyms()`
+- `lowest_common()`

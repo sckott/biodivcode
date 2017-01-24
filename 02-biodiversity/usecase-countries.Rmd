@@ -1,0 +1,50 @@
+---
+title: "Biodiversity data: use case - Finding countries species are found"
+author: Scott Chamberlain
+date: 2017-01-24
+output: md_document
+---
+
+```{r echo=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  message = FALSE,
+  warning = FALSE,
+  cache.path = "cache/"
+)
+```
+
+## rgbif use case - Finding countries species are found in using rgbif
+
+### Load some libraries
+
+```{r}
+library(rgbif)
+library(plyr)
+```
+
+### List of bird species
+
+```{r}
+spplist <- c('Geothlypis trichas','Tiaris olivacea','Pterodroma axillaris','Calidris ferruginea','Pterodroma macroptera','Gallirallus australis','Falco cenchroides','Telespiza cantans','Oreomystis bairdi','Cistothorus palustris')
+```
+
+### Get GBIF keys for each taxon
+
+```{r}
+(keys <- sapply(spplist, function(x) name_backbone(x, rank = "species")$usageKey))
+```
+
+### Get data for each species
+
+```{r}
+out <- Map(function(a, b) {
+  data.frame(
+    taxon = b, 
+    occ_search(taxonKey = a, facet = "country", limit = 0)$facets$country,
+    stringsAsFactors = FALSE
+  )
+}, unname(keys), names(keys))
+res <- ldply(out)
+head(res); tail(res)
+```

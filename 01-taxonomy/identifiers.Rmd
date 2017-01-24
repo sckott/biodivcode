@@ -1,0 +1,114 @@
+---
+title: "Taxonomy: identifiers"
+author: Scott Chamberlain
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+---
+
+```{r echo=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  message = FALSE,
+  warning = FALSE
+)
+```
+
+# Taxonomic identifiers
+
+## Search by taxonomic name
+
+```{r}
+library('taxize')
+(out <- get_uid("Poa annua"))
+```
+
+## Sometimes you are presented with a prompt
+
+```{r eval=FALSE}
+get_colid("Alces alces")
+#>                       name         rank                            colid   name_status  kingdom   family
+#> 1              Alces alces      species fc7d998315ba4a3e50cfab10954bdc45 accepted name Animalia Cervidae
+#> 2        Alces alces alces infraspecies f2d7d57ae493db1767049fc11bb999cf accepted name Animalia Cervidae
+#> 3   Alces alces caucasicus infraspecies ffdb4bc3627d6293e48b07d67802388d accepted name Animalia Cervidae
+#> 4    Alces alces americana infraspecies 505aab1a2067afac631af51b575d115e       synonym     <NA>     <NA>
+#> 5    Alces alces andersoni infraspecies 505aab1a2067afac631af51b575d115e       synonym     <NA>     <NA>
+#> 6   Alces alces cameloides infraspecies c8557a9c74530ec84395efaaec4f6bfd       synonym     <NA>     <NA>
+#> 7        Alces alces gigas infraspecies 505aab1a2067afac631af51b575d115e       synonym     <NA>     <NA>
+#> 8 Alces alces pfizenmayeri infraspecies 505aab1a2067afac631af51b575d115e       synonym     <NA>     <NA>
+#> 9      Alces alces shirasi infraspecies 505aab1a2067afac631af51b575d115e       synonym     <NA>     <NA>
+```
+
+## Underscore method: get all data 
+
+```{r}
+get_colid_("Alces alces")
+```
+
+Then choose which name yourself, ideally programatically.
+
+
+## Coerce ids to ID classes
+
+```{r}
+as.gbifid(2704179)
+```
+
+```{r}
+as.gbifid(2704179, check = FALSE)
+```
+
+Then many functions become available that act on these ID classes
+
+## Many names - the ids class
+
+In this case get many identifiers for many names, then pass in identifiers to get many classifications
+
+```{r}
+mynames <- c("Helianthus annuus","Pinus contorta","Collomia grandiflora")
+out <- get_ids(mynames, db = c('ncbi','itis','col','tropicos'))
+out$tropicos
+class(out)
+class(out$col)
+classification(out$col)
+```
+
+
+## Your turn
+
+- 5 min
+
+> Search 3 different data sources via get* functions, each with a few
+taxonomic names you know off the top of your head. If you can't think of
+any see names_list() function.
+
+
+
+# Use identifiers with other functions
+
+Taxonomic hierarchy
+
+```{r}
+classification(9606, db = 'ncbi')
+```
+
+
+Get synonyms
+
+```{r}
+synonyms('Pomatomus saltatrix', db = 'worms')
+```
+
+
+Get children
+
+```{r}
+children("Salmo", db = 'worms')
+```
+
+
+# Your turn
+
+- 5 min
+
+> Take some taxonomic IDs or get new ones, and inputs those IDs to other
+taxize functions. Try to use one above you just saw and another one 
+in the documentation. 

@@ -1,0 +1,80 @@
+---
+title: "Biodiversity data: rgbif data cleaning"
+author: Scott Chamberlain
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+---
+
+```{r echo=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  message = FALSE,
+  warning = FALSE
+)
+```
+
+## rgbif data quality/data cleaning
+
+```{r}
+library('rgbif')
+```
+
+## Parsing output by issue
+
+```{r}
+(res <- occ_search(geometry='POLYGON((30.1 10.1, 10 20, 20 40, 40 40, 30.1 10.1))', limit = 50))
+```
+
+Can print whole table, or search for matches
+
+```{r}
+head(gbif_issues())
+gbif_issues()[ gbif_issues()$code %in% c('cdround','cudc','gass84','txmathi'), ]
+```
+
+Or parse issues in various ways, e,g. remove data rows with certain issue classes
+
+```{r}
+library('magrittr')
+res %>% occ_issues(-gass84, -mdatunl)
+```
+
+split issues into separate columns
+
+```{r}
+res %>% occ_issues(mutate = "split")
+```
+
+expand issues to more descriptive names
+
+```{r}
+res %>% occ_issues(mutate = "expand")
+```
+
+split and expand
+
+```{r}
+res %>% occ_issues(mutate = "split_expand")
+```
+
+split, expand, and remove an issue class
+
+```{r}
+res %>% occ_issues(-gass84, mutate = "split_expand")
+```
+
+
+## Other cleaning
+
+* Contextual cleaning based on 
+  * impossible lat/long values
+  * expected habitat type
+  * expected range of values
+  * etc.
+  
+
+## Your turn
+
+- 5 min
+
+> Get some data from rgbif::occsearch, then use rgbif::occ_issues to 
+parse data. 

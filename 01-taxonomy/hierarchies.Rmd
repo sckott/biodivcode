@@ -1,0 +1,77 @@
+---
+title: "Taxonomy: hierarchies"
+author: Scott Chamberlain
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+---
+
+```{r echo=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  message = FALSE,
+  warning = FALSE
+)
+```
+
+## Hierarchies
+
+Full hierarchies
+
+```{r getdata}
+library('taxize')
+splist <- c("Helianthus annuus","Pinus contorta","Collomia grandiflora","Abies magnifica","Rosa californica","Datura wrightii","Mimulus bicolor","Nicotiana glauca","Madia sativa","Bartlettia scaposa")
+class_list <- classification(splist, db = "gbif")
+```
+
+We can combine the hierarchy outputs
+
+```{r manipulate}
+(class_df <- cbind(class_list))
+```
+
+Now we can start seeing some relationships among species simply by their
+shared taxonomic names
+
+```{r index}
+class_df[1:2, ]
+```
+
+## downstream
+
+We can get downstream names, in this case all species from the genus *Apis*
+
+```{r}
+downstream("Apis", db = "col", downto = "Species")
+```
+
+## upstream
+
+We can also upstream names, in this case all genera up genus *Apis*
+
+```{r eval=FALSE}
+upstream('Poa annua', db = 'col', upto = 'family')
+#> $`Poa annua`
+#>                        childtaxa_id   childtaxa_name childtaxa_rank
+#> 1  3834e28670fe3c8f76fea24fb496a15f    Anarthriaceae         family
+#> 2  0cead872c131282b96da3b3ca3a6fbf8     Bromeliaceae         family
+#> 3  4ec08d1396898b750fe1727545ac273b Centrolepidaceae         family
+#> 4  9c6d72055c3933fb772878569d1e2744       Cyperaceae         family
+#> 5  b11f7be500656ec5ea365a1c7a07a35f  Ecdeiocoleaceae         family
+#> 6  0d9601b89e891871a79b72d28b00f1c5    Eriocaulaceae         family
+#> 7  dcb2312860f7923e219fc4f133576021  Flagellariaceae         family
+#> 8  4e33ddf845e917d310361e74cfb39370   Joinvilleaceae         family
+#> 9  d2bce625cc55cf37f6cbc1143ad48047        Juncaceae         family
+#> 10 2c3053c3692654b0c949ccf466b1c12e       Mayacaceae         family
+#> 11 d01bb56e344e74c4cd8279d28612897e          Poaceae         family
+#> 12 529357780bc2958682ac01662c0d6bc3      Rapateaceae         family
+#> 13 2d03ecec028bdd7142736243105e905c     Restionaceae         family
+#> 14 8f16a0a86bc6377af6cbfba51fe89c38      Thurniaceae         family
+#> 15 6d55aefffa2cb553f22f0758507be694        Typhaceae         family
+#> 16 a31c53aa2ddbf8f86f17d5b89ffe2406       Xyridaceae         family
+```
+
+## Your turn
+
+- 5 min
+
+> For 10 names, search by name or get taxonomic IDs using our previous tools, 
+and get full hierarchy, and bind them together both row-wise and column-wise.
